@@ -1,0 +1,403 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="keywords" content="RD工作台">
+    <meta name="description" content="RD工作台">
+    <title>RD工作台</title>
+
+    <!-- CSS  -->
+    <link href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/prism/1.15.0/themes/prism.min.css" rel="stylesheet">    
+    <link href="https://cdn.bootcss.com/materialize/0.100.2/css/materialize.min.css" type="text/css" rel="stylesheet" />
+
+    <style>
+    	html,body{
+			width:100%;
+			height:100%
+		}
+		
+		body{
+		  background:url("img/bg_desktop.jpg");
+		  background-size: 100%;
+		}
+		.margin_zero{
+			margin-bottom: 0px;
+		}
+		.p_ico{
+			margin-top: -8px;font-size: 0.9em;
+		}
+		.fixed{ position:fixed; left:0px; bottom:0px; width:100%; height:50px; background-color:#000; z-index:9999;}
+		
+		
+		#meta { position:absolute; top:70px; right:20px; }
+        #meta div { padding:20px; color:#000; margin: 0 0 20px;
+                -moz-border-radius:5px;-webkit-border-radius:5px;
+                background:rgba(255,255,255,0.50)}
+        #meta a {color:#005aff;}
+        #meta a img {margin:0 10px 0 0; border:solid 1px #000;}  
+        #window_menu{
+        	position:fixed; left:0px; bottom:50px;
+        } 
+        #startmenu {z-index:9999;border:solid 1px #102a3e; overflow:visible;float:left; display:inline-block; 
+                     -moz-border-radius:5px;-webkit-border-radius:5px; 
+                     box-shadow: inset 0 0 1px #fff; -moz-box-shadow: inset 0 0 1px #fff; -webkit-box-shadow: inset 0 0 1px #fff;
+                     background-color:#619bb9;
+                     background: -moz-linear-gradient(top, rgba(50, 123, 165, 0.75), rgba(46, 75, 90, 0.75) 50%, rgba(92, 176, 220, 0.75));
+                     background: -webkit-gradient(linear, center top, center bottom, from(#327aa4),color-stop(45%, #2e4b5a), to(#5cb0dc)); }
+        #programs, #links {float:left; display:block; padding:0; list-style:none;}
+        #programs { background:#fff; border:solid 1px #365167; margin:7px 0 7px 7px;
+                    box-shadow: 0 0 1px #fff; -moz-box-shadow: 0 0 1px #fff; -webkit-box-shadow: 0 0 1px #fff;
+                    -moz-border-radius:3px;-webkit-border-radius:3px;}
+        #programs a { border:solid 1px transparent; display:block; padding:3px; margin:3px; 
+                      color:#4b4b4b; text-decoration:none; min-width:220px;}
+        #programs a:hover {border:solid 1px #7da2ce; 
+                     -moz-border-radius:3px; -webkit-border-radius:3px;
+                     box-shadow: inset 0 0 1px #fff; -moz-box-shadow: inset 0 0 1px #fff; -webkit-box-shadow: inset 0 0 1px #fff;
+                     background-color:#cfe3fd;
+                     background: -moz-linear-gradient(top, #dcebfd, #c2dcfd);
+                     background: -webkit-gradient(linear, center top, center bottom, from(#dcebfd), to(#c2dcfd));}
+        #programs a img {border:0; vertical-align:middle; margin:0 5px 0 0;}             
+        #links {margin:7px; margin-top:-30px;}
+        #links li.icon {text-align:center;}
+        #links a {border:solid 1px transparent; display:block; margin:5px 0; position:relative;
+                      color:#fff; text-decoration:none; min-width:120px;}
+        #links a:hover {border:solid 1px #000;
+                     -moz-border-radius:3px; -webkit-border-radius:3px;
+                     box-shadow: 0 0 1px #fff; -moz-box-shadow: inset 0 0 1px #fff; -webkit-box-shadow: inset 0 0 1px #fff;
+                     background-color:#658da0;
+                     background: -moz-linear-gradient(center left, rgba(81,115,132,0.55), rgba(121,163,184,0.55) 50%, rgba(81,115,132,0.55));
+                     background: -webkit-gradient(linear, 0% 100%, 100% 100%, from(#517384), color-stop(50%, #79a3b8), to(#517384)); 
+                     }
+        #links a span { padding:5px; display:block; }
+        #links a:hover span  { background: -moz-linear-gradient(center top, transparent, transparent 49%, rgba(2,37,58,0.5) 50%, rgba(63,111,135,0.5));
+                    background: -webkit-gradient(linear, center top, center bottom, from(transparent), color-stop(49%, transparent), 
+                               color-stop(50%, rgba(2,37,58,0.5)), to(rgba(63,111,135,0.5))); }
+                               
+        .subTree{
+        	margin-left: 20px;
+        }                     
+    </style>
+</head>
+<body>
+
+<div class="section no-pad-bot">
+        <div class="row center margin_zero">
+       		<div class="col s3 m1 l1">
+       			<div class="desktopComp" href="index.html">
+       				<div>
+       					<img src="img/fast/home.png" height="50" width="50" title="主页-快捷方式" ></img>		 
+       				</div>
+       				<div>
+       					<p class="white-text p_ico" contenteditable = "true">主页</p>
+       				</div>
+       			</div>
+       		</div>
+        </div>
+        <div class="row center margin_zero">
+       		<div class="col s3 m1 l1">
+       			<div class="desktopComp" href="json.html">
+       				<div>
+       					<img src="img/fast/post.png" height="50" width="50" title="Post请求-快捷方式" ></img>		 
+       				</div>
+       				<div>
+       					<p class="white-text p_ico" contenteditable = "true">Post</p>
+       				</div>
+       			</div>
+       		</div>
+        </div>
+       
+         <div class="row center margin_zero">
+       		<div class="col s3 m1 l1">
+       			<div class="desktopComp" href="niubility.html">
+       				<div>
+       					<img src="img/fast/niubility.png" height="50" width="50" title="特效-快捷方式" ></img>		 
+       				</div>
+       				<div>
+       					<p class="white-text p_ico" contenteditable = "true">特效</p>
+       				</div>
+       			</div>
+       		</div>
+        </div>
+</div>
+
+<div>
+<div id="window_menu" style="width:480px;display:None">
+    <div id="startmenu">
+        <ul id="programs" class="collapsible" data-collapsible="accordion">
+            <li>
+            	<a href="javascript:void(0)" onclick="subTreeOpen('subTreeJson')"><img src="img/fast/sys.png" height="20" width="20"  alt="" />平台应用</a>
+            	<ul class="subTree" id="subTreeJson" open='false' style="display:None">
+		            <li><a class="pmRedirect" href="json.html" target="_blank"><img src="img/fast/post.png" height="10" width="10" alt="" />Post</a></li>
+            	</ul>
+            	<a href="javascript:void(0)" onclick="subTreeOpen('subTreeConfig')"><img src="img/fast/config.png" height="20" width="20"  alt="" />配置</a>
+            	<ul class="subTree" id="subTreeConfig" open='false' style="display:None">
+            		<li><a href="javascript:configOpen()" ><img src="img/fast/openconfig.png" height="10" width="10" alt="" />打开方式</a></li>
+		            
+            	</ul>
+            </li>
+            
+            <li><br></li><li><br></li><li><br></li><li><br></li><li><br></li><li><br></li><li><br></li>
+        </ul>
+        <ul id="links">
+            <li class="icon"><img src="img/fast/window/folder.png" alt="" /></li>
+            <li><a href="index.html"><span>主页</span></a></li>
+			<li><a href="niubility.html"><span>特效</span></a></li>
+        </ul>
+
+    </div>
+</div>
+ <footer class="page-footer black fixed" style="padding-top: 0px;">
+
+  <div class="footer-copyright">
+    <div class="section no-pad-bot" style="padding-top: 0rem;width: 100%;">
+    	<div class="row">
+	    	<div id="windows_menu_control" class="col s2 left">
+		    	<img class="left" src="img/fast/windows_foot.png" height="30" width="30" ></img>
+		    </div>
+		    <div class="col s4">
+		   		© 2018 Copyright 陈付菲
+		    </div>
+		    <div class="col s3">
+		    	<a class="grey-text text-lighten-4 left" href="index.html">主页</a>
+		    </div>
+		    <div class="col s3">
+		    	<a class="grey-text text-lighten-4 right" href="javascript:desktopWindow()"><i class="material-icons left">more_vert</i>放到桌面</a>
+		    </div>
+	    </div>
+    </div>
+  </div>
+</footer>
+
+          
+</div>
+
+  <div id="putToDesktop" class="modal">
+    <div class="modal-content">
+        <h5 clss="left">放到桌面</h5>
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat right">关闭</a>
+    </div>
+	<div class="modal-content">
+		  <ul class="collapsible" data-collapsible="accordion">
+		  	<li>
+		      <div class="collapsible-header"><i class="material-icons">place</i>通用方法</div>
+		      <div class="collapsible-body">
+      			<p>在目标浏览器上点击右键-->属性，打开的对话框中找到【目标】一栏</p>
+      			<img src="img/tip/targert_link.png" class="materialboxed" height="180" width="100" alt="" />
+      			<p>选择【目标】右键【复制】，复制下IE的安装路径</p>
+      			<p>回到桌面，在空白的地方右键，选择【新建】，然后选择【快捷方式】</p>
+      			<p>在弹出的对话框内右键【粘贴】刚才复制的路径，记得后面加一个空格，后面贴上工具网址https://www.pomit.cn/desktop.html</p>
+		      </div>
+		    </li>
+		    <li>
+		      <div class="collapsible-header"><i class="material-icons">filter_drama</i>IE浏览器</div>
+		      <div class="collapsible-body">
+		      	<p>点击下方按钮即可</p>
+		      	<a class="waves-effect waves-light btn" href="javascript:void(0);" onclick="toDesktop('https://www.pomit.cn/desktop.html','品茗桌面')">创建快捷方式</a>
+		      	<p>创建失败？解决办法：</p>
+
+<p>开始－》运行－》regsvr32 c:\WINDOWS\system32\shell32.dll</p>
+<p>开始－》运行－》regsvr32 c:\WINDOWS\system32\WSHom.Ocx</p>
+<p>开始－》运行－》regsvr32 c:\WINDOWS\system32\scrrun.dll</p>
+		      </div>
+		    </li>
+		    
+  		 </ul>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">关闭</a>
+    </div>
+</div>
+
+<div id="configModal" class="modal">
+    <div class="modal-content">
+        <h5 class="center">配置打开方式</h5>
+    </div>
+	<div class="modal-content center">
+		   <div class="switch">
+		    <label>
+		    	 新窗口
+		      <input type="checkbox" id="openType" >
+		      <span class="lever"></span>
+		      Iframe
+		    </label>
+		  </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">关闭</a>
+    </div>
+</div>
+<div id="iframeModal" class="modal" style="height: 80%;width:80%;max-height:90%">
+	<div class="modal-content" style="height: 95%;width:100%;">
+		<iframe src="" id="iframeContent" width="100%" height="100%" style="border: 0px;">
+		</iframe>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat red">关闭</a>
+    </div>
+</div>
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/materialize/0.100.2/js/materialize.min.js"></script>
+
+<script>
+	var openType=1;
+	function fullscreen() {
+	  var docElm = document.documentElement;
+	  if (docElm.requestFullscreen) {
+	    docElm.requestFullscreen();
+	  } else if (docElm.mozRequestFullScreen) {
+	    docElm.mozRequestFullScreen();
+	  } else if (docElm.webkitRequestFullScreen) {
+	    docElm.webkitRequestFullScreen();
+	  } else if (docElm.msRequestFullscreen) {
+	    docElm.msRequestFullscreen();
+	  }
+	}
+
+	// 退出全屏
+	function exitFullscreen() {
+	  if (document.exitFullscreen) {
+	    document.exitFullscreen();
+	  } else if (document.mozCancelFullScreen) {
+	    document.mozCancelFullScreen();
+	  } else if (document.webkitCancelFullScreen) {
+	    document.webkitCancelFullScreen();
+	  } else if (document.msExitFullscreen) {
+	    document.msExitFullscreen();
+	  }
+	}
+	function isFullscreen(){
+         return document.fullscreenElement    ||
+                document.msFullscreenElement  ||
+                document.mozFullScreenElement ||
+                document.webkitFullscreenElement || false;
+    }
+	var isFullScreen = false;
+	
+	function subTreeOpen(id){
+		var isSubOpen = $("#" + id).attr("open");
+ 		$("#" + id).attr("open",!isSubOpen);
+ 		if(isSubOpen)
+			$("#" + id).show();
+ 		else{
+ 			$("#" + id).hide();
+ 		}
+	}
+	function configOpen(){
+		$('#configModal').modal('open');
+		if(openType == 0){
+			$('#openType').attr("checked", 'checked');
+		}else{
+			$('#openType').attr("checked", false);
+		}
+	}
+	function desktopWindow(){
+		$('#putToDesktop').modal('open');
+	}
+	function toDesktop(sUrl, sName) {
+		try {
+			var WshShell = new ActiveXObject("WScript.Shell");
+			var oUrlLink = WshShell.CreateShortcut(WshShell
+					.SpecialFolders("Desktop")
+					+ "\\" + sName + ".url");
+			oUrlLink.TargetPath = sUrl;
+			oUrlLink.Save();
+		} catch (e) {
+			Materialize.toast("当前浏览器不支持或IE安全级别不允许操作！", 4000);
+		}
+	}
+	function urlInit(url, classHref){
+		$.ajax({
+    		type : "GET",
+    		url : url,
+    		data: {
+    		  
+    		},
+    		dataType : "json",
+    		success : function(data) {
+    			var url = data.data;
+    			$("."+classHref).attr("href",url);
+    		},
+    		error : function(XMLHttpRequest, textStatus, errorThrown) {
+
+    		}
+    	});
+	}
+	function open_new_window(full_link){ 
+		console.log(full_link);
+   	    window.open('javascript:window.name;', '<script>location.replace("'+full_link+'")<\/script>');
+   	}
+	function open_without_referrer(link){
+		document.body.appendChild(document.createElement('iframe')).src='javascript:"<script>top.location.replace(\''+link+'\')<\/script>"';
+	}
+    $(function () {
+    	$(window).keydown(function(e){
+        	var currKey=0;
+        	currKey = e.keyCode||e.which||e.charCode;
+        	if(currKey == 123){  
+        		if(!isFullscreen())
+        			fullscreen();
+        		else
+        			exitFullscreen();
+        		return false;
+        	}
+        });
+    	
+    	urlInit("union/post/PM/login","pmRedirect");
+   	   	var touchtime = new Date().getTime();
+   		
+   	    $(".desktopComp").on("click", function(){
+   	        if( new Date().getTime() - touchtime < 500 ){
+   	        	var url = $(this).attr("href");
+   	        	if(openType == 0){
+   	        		$('#iframeModal').modal('open');
+   	        		$('#iframeContent').attr('src',url);
+   	        	}else{
+   	        		window.open(url);
+   	        	}
+   	        }else{
+   	            touchtime = new Date().getTime();
+   	        }
+   	    });
+   	 	
+   	    var isOpen = false;
+   	 	$("#windows_menu_control").on("click", function(){
+   	 		isOpen = !isOpen;
+   	 		if(isOpen)
+   	 			$("#window_menu").show();
+   	 		else{
+   	 			$("#window_menu").hide();
+   	 		}
+	    });
+   	 	$("#openType").change(function() { 
+	     	var ischecked = $(this).prop("checked");
+	     	if(ischecked){
+	     		openType = 0;
+	     	}else{
+	     		openType = 1;
+     		}
+    	});
+   	 	
+   	 	$('.modal').modal({
+			dismissible: true, // 点击模态外面模态消失关闭
+			opacity: 0.5, // 相对于背景的不透明度
+			in_duration: 300, // 显示特效的时间
+			out_duration: 200, // 消失特效时间
+			starting_top: '4%', // 启动时的样式属性
+			ending_top: '10%', // 结束时的样式属性
+			ready: function(modal, trigger) { // 模态加载完成触发事件
+				
+			},
+			complete: function() { 
+				
+			} // 关闭时触发的事件
+		});
+    });
+    
+</script>
+
+</html>

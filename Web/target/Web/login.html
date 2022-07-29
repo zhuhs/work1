@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>品茗IT-*登录</title>
+
+    <!-- CSS  -->
+    <link href="https://lib.baomitu.com/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/materialize/0.100.2/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <style>
+
+		.button-collapse {
+            color: #26a69a;
+        }
+		a:link,a:visited{
+			text-decoration:none;  
+			color:black;
+			font-family: "Roboto", sans-serif;
+		}
+		a:hover{
+			text-decoration:none; 
+			color:black;
+			font-family: "Roboto", sans-serif;
+		}
+		#reg_a:link{
+			color:#69F0AE;
+		}
+		#reg_a:visited{
+			color:#00e676;
+		}
+		#reg_a:hover{
+			color:#1669a7;
+		}
+		#forgot_a:link{
+			color:#ff9800;
+		}
+		#forgot_a:visited{
+			color:#ff9800;
+		}
+		#forgot_a:hover{
+			color:#ffb74d;
+		}
+		
+  </style>
+</head>
+
+<body>
+	<!-- header start -->
+
+<!-- header end -->
+
+  <div class="section no-pad-bot" style="padding-top: 3rem;">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m9 l6" style="padding: 3rem!important;">
+          <h3>您好！</h3>
+          <p>已经有账号，可以直接登录。</p>
+          <div>
+            <div class="form-group"> <input type="email" class="form-control" id="mobileInput" placeholder="请输入用户名或Email"> </div>
+            <div class="form-group"> <input type="password" class="form-control" placeholder="请输入密码" id="passwdInput"> 
+            <div class="form-group"> <input type="text" class="form-control" placeholder="请输入验证码" id="imgCodeInput"> 
+            	
+            </div> 
+            
+            <div>
+	            <button type="button" id="loginBtn" class="btn btn-primary">提交</button>
+            </div>
+          </div>
+		  <br>
+		  <div id="alertDiv" class="alert alert-danger" style="display:none">
+			<a href="javascript:$('#alertDiv').hide();" class="close" >&times;</a>
+			<strong>登录失败！</strong>
+		  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="https://lib.baomitu.com/jquery/3.3.0/jquery.min.js"></script>
+<script src="https://lib.baomitu.com/materialize/0.100.2/js/materialize.min.js"></script>
+
+<script>
+	$(function () {
+        $('.button-collapse').sideNav();
+       	
+        var url = window.location.href;
+        var type = 0;
+        var origin = document.referrer;
+        if(url != null && url != ""){
+            var argsIndex = url.split("?type=");
+            if(argsIndex != null && argsIndex.length > 0){
+            	type = argsIndex[1];
+            }else{
+            	var argsOrigin = url.split("?origin=");
+            	if(argsOrigin != null && argsOrigin.length > 0){
+            		origin = argsOrigin[1];
+                }
+            }
+        }
+		$('#loginBtn').on('click', function() {
+			var userName = $("#mobileInput").val();
+			var passwd = $("#passwdInput").val();
+			var imgCode = $("#imgCodeInput").val();
+			$.ajax({
+				type : "POST",
+				url : "/login",
+				data: {
+				  "userName": userName,
+				  "userPwd": passwd,
+				  "imgtoken":imgCode
+				},
+				
+				dataType : "json",
+				success : function(data) {
+					console.log(data);
+					if (data.errorCode == "00000") {
+						location.href = "index.html";
+					}else{
+						Materialize.toast(data.message, 4000);
+					}
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+
+				}
+			});
+		});
+    });
+</script>
+</body>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?e553ae2bb23494dee9b6f43415a1ce5a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</html>

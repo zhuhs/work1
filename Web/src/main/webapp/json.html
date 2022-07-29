@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="keywords" content="HTTP请求工具">
+    <meta name="description" content="HTTP请求工具">
+    <title>HTTP请求工具</title>
+
+    <!-- CSS  -->
+    <link href="https://lib.baomitu.com/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
+    <link href="./css/json.css" rel="stylesheet">    
+    <link href="https://lib.baomitu.com/materialize/0.100.2/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<script src="./js/json.js?v=129"></script>
+     <style>
+	/* Custom Stylesheet */
+        /**
+         * Use this file to override Materialize files so you can update
+         * the core Materialize files in the future
+         *
+         * Made By MaterializeCSS.com
+         */
+
+        body{
+        	background: #fff6f6
+        }
+
+        p {
+            line-height: 2rem;
+        }
+
+        .button-collapse {
+            color: #26a69a;
+        }
+
+        .parallax-container {
+            min-height: 380px;
+            line-height: 0;
+            height: auto;
+            color: rgba(255,255,255,.9);
+        }
+        .parallax-container .section {
+            width: 100%;
+        }
+
+        @media only screen and (max-width : 992px) {
+            .parallax-container .section {
+                position: absolute;
+                top: 40%;
+            }
+            #index-banner .section {
+                top: 10%;
+            }
+        }
+
+        @media only screen and (max-width : 600px) {
+            #index-banner .section {
+                top: 0;
+            }
+        }
+
+        .icon-block {
+            padding: 0 15px;
+        }
+        .icon-block .material-icons {
+            font-size: inherit;
+        }
+
+        footer.page-footer {
+            margin: 0;
+        }
+        
+        .token.punctuation {
+		    color: #999;
+		}
+		.bar-active{
+			background: #f5c2c2b3;
+		}
+		.bar-doc{
+			background-color: #f7a1a1;
+		}
+		.center-block{
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			text-align: -webkit-center;
+		}
+		.searchInput{
+		    display: block;
+		    width: 100%;
+		    height: 34px;
+		    padding: 6px 12px;
+		    font-size: 14px;
+		    line-height: 1.42857143;
+		    color: #555;
+		    background-color: #fff;
+		    background-image: none;
+		    border: 1px solid #ccc;
+		    border-radius: 4px;
+		    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+		    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+		    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+		    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+		    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+		}
+		td{
+			padding: 10px 5px !important;
+		}
+    </style>
+</head>
+<body>
+
+<!-- content -->
+<div class="section no-pad-bot">
+    <div class="container">
+        <div class="row center">
+	        <span class="teal-text text-lighten-2 center" style="font-size: 1.5em;font-weight:bold;color: #112f6b!important;">发送HTTP请求</span>
+        </div>
+    </div>
+</div>
+<div class="divider"></div>
+<div >
+    <div class="container">
+
+        <!-- main info -->
+       	<div class="row">
+        	<blockquote>
+			      请求数据：
+			</blockquote>
+        	<div id="rootInputData">
+				<textarea class="z-depth-1" id="RawJson" style="resize:none; height: 15rem; background-color: white" ></textarea>
+			</div>
+        </div>
+        <div class="row">
+		    <div class="col s4" >
+		    	 <div class="switch">
+				    <label>
+				      GET
+				      <input type="checkbox" id="second_switch_dst" checked>
+				      <span class="lever"></span>
+				      POST
+				    </label>
+				  </div>
+		    </div>
+		    <div class="col s8" >	
+			  <form action="#">
+			      <input name="group1" type="radio" value=1 id="getParam" />
+			      <label for="getParam">Params</label>
+
+			      <input class="with-gap" name="group1" type="radio" value=2 id="jsonRadio" />
+			      <label style="margin-left:30px" for="jsonRadio">JSON</label>
+
+			      <input class="with-gap" name="group1" type="radio" value=3 id="formdata"  />
+			      <label style="margin-left:30px" for="formdata">form-data</label>
+
+			      <input class="with-gap" name="group1" type="radio" value=4 id="urlencoded"  />
+			      <label style="margin-left:30px" for="urlencoded">x-www-form-urlencoded</label>
+			  </form>
+		    </div>
+		</div>
+		<div class="row">
+		    <div class="left valign-wrapper" style="height:34px"><span class="control-label right">http://127.0.0.1:8380/api/</span></div>
+		    <div class="left"><input type="text" class="browser-default searchInput left" id="inputUrl" ></div>
+		</div>
+		<div class="row" style="margin-top:30px">
+	        <button type="button" class="waves-effect  lighten-2 waves-light btn" onclick="prism()">格式化</button>
+	        <button type="button" class="waves-effect red lighten-2 waves-light btn" style="margin-left:30px" onclick="postForResult()">发送请求</button>
+	        <button type="button" class="waves-effect blue darken-2 lighten-2 waves-light btn" style="margin-left:30px" onclick="saveSnapshot()">保存快照</button>
+	        <button type="button" class="waves-effect  green darken-1 lighten-2 waves-light btn" style="margin-left:30px" onclick="javascript:$('#inputJsonFile').click()">加载快照</button>
+	        <input type="file" class="waves-effect red lighten-2 waves-light btn" style="margin-left:30px;display:none" id="inputJsonFile" onchange="loadSnapshot(this.files)"/>
+        </div> 
+		<div>
+        	<blockquote>
+			     响应结果：
+			</blockquote>
+        	<div>
+				<div class="z-depth-1" id="Canvas" style="resize:none; height: 15rem;overflow:auto;margin-bottom:0px;background-color: white" >
+					
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+
+<!-- content -->
+<div class="section no-pad-bot">
+    <div class="container">
+    	<div class="row">
+		</div>  
+    </div>
+</div>
+
+</body>
+
+<script src="https://lib.baomitu.com/jquery/3.3.0/jquery.min.js"></script>
+<script src="https://www.pomit.cn/js/FileSaver.min.js"></script>
+<script src="https://lib.baomitu.com/materialize/0.100.2/js/materialize.min.js"></script>
+<script>
+	function postForResult(){
+		var httpType = "POST";
+		var ischecked = $("#second_switch_dst").prop("checked");
+		var val=$('input:radio[name="group1"]:checked').val();
+        if(val==null){
+            alert("什么也没选中!");
+            return;
+        }
+		if(!ischecked){
+			httpType = "GET";
+			
+			httpForResult(httpType);
+		}else{
+			if(val == 2){
+				postJsonForResult();
+			}else{
+				httpForResult(httpType);
+			}
+		}
+		
+	}
+	function addRow(){
+	    var oTable = document.getElementById("oTable");
+	    var tBodies = oTable.tBodies;
+	    var tbody = tBodies[0];
+	    var rowNumm = tbody.rows.length;
+	    var tr = tbody.insertRow(rowNumm);
+	    var td_1 = tr.insertCell(0);
+	    td_1.innerHTML = "<div contenteditable='true'>第1列</div>";
+	    var td_2 = tr.insertCell(1);
+	    td_2.innerHTML = "<div contenteditable='true'>第2列</div>";
+	    var td_3 = tr.insertCell(2);
+	    td_3.innerHTML = `<input type="checkbox" id="checkbox${rowNumm}" checked="checked" />
+      		<label for="checkbox${rowNumm}"></label>`;
+	    var td_4 = tr.insertCell(3);
+	    td_4.innerHTML = `<a style="cursor:pointer" onclick="deleteRow(this);"><i class="material-icons">delete</i></a>`;
+	}
+	function deleteRow(domid){
+		$(domid).parent().parent().remove(); 
+	}
+    $(function () {
+    	$("#second_switch_dst").change(function() { 
+        	var ischecked = $(this).prop("checked");
+        	if(ischecked){
+        		$("#jsonRadio").removeAttr("disabled");
+        		$("#formdata").removeAttr("disabled");
+        		$("#urlencoded").removeAttr("disabled");
+        	}else{
+        		$("#getParam").attr("checked",true);
+        		$("#rootInputData").html(`
+    					<div class="z-depth-1" id="RawJson" style="resize:none; height: 15rem;overflow:auto;margin-bottom:0px;background-color: white" >
+    			<table class="left" id="oTable" style="background-color:#eeeeee;width: 70%; table-layout:fixed;" bordercolor="#aaaaaa" border="1" cellpadding="0" cellpadding="2" width="60%">
+    			<thead>
+    			<tr>
+    			<th>key</th>
+    			<th>value</th>
+    			<th>是否传输</th>
+    			<th>操作</th>
+    			</tr>
+    			</thead>
+    			<tbody id="tableBody">
+    			<tr>
+    			<td style="padding: 10px 5px;"><div contenteditable="true">test</div></td>
+    			<td style="padding: 10px 5px;"><div contenteditable="true">test</div></td>
+    			<td style="padding: 10px 5px;"> 
+			      		<input type="checkbox" id="checkbox0" checked="checked" />
+			      		<label for="checkbox0"></label>
+			    </td>
+    			<td style="padding: 10px 5px;"><a style="cursor:pointer" onclick="deleteRow(this);"><i class="material-icons">delete</i></a></td>
+    			</tr>
+    			</tbody>
+    			</table>
+    			<div class="right">
+    	        	<button type="button" class="waves-effect  green darken-1 lighten-2 waves-light btn" style="margin-left:30px" onclick="addRow();">添加一行</button>
+    	        </div>
+				</div>
+    					`);
+
+        		$("#jsonRadio").attr("disabled","disabled");
+        		$("#formdata").attr("disabled","disabled");
+        		$("#urlencoded").attr("disabled","disabled");
+        		
+        	}
+       	});
+
+    	$('input:radio[name="group1"]').click(function(){
+    		var checkValue = $(this).val(); 
+    		if(checkValue == 1 || checkValue == 4){
+    			$("#rootInputData").html(`
+    					<div class="z-depth-1" id="RawJson" style="resize:none; height: 15rem;overflow:auto;margin-bottom:0px;background-color: white" >
+    			<table class="left" id="oTable" style="background-color:#eeeeee;width: 70%; table-layout:fixed;" bordercolor="#aaaaaa" border="1" cellpadding="0" cellpadding="2" width="60%">
+    			<thead>
+    			<tr>
+    			<th>key</th>
+    			<th>value</th>
+    			<th>是否传输</th>
+    			<th>操作</th>
+    			</tr>
+    			</thead>
+    			<tbody id="tableBody">
+    			<tr>
+    			<td style="padding: 10px 5px;"><div contenteditable="true">test</div></td>
+    			<td style="padding: 10px 5px;"><div contenteditable="true">test</div></td>
+    			<td style="padding: 10px 5px;"> 
+    		      		<input type="checkbox" id="checkbox0" checked="checked" />
+    		      		<label for="checkbox0"></label>
+    		    </td>
+    			<td style="padding: 10px 5px;"><a style="cursor:pointer" onclick="deleteRow(this);"><i class="material-icons">delete</i></a></td>
+    			</tr>
+    			</tbody>
+    			</table>
+    			<div class="right">
+    	        	<button type="button" class="waves-effect  green darken-1 lighten-2 waves-light btn" style="margin-left:30px" onclick="addRow();">添加一行</button>
+    	        </div>
+				</div>
+    					`);
+    		}else{
+    			$("#rootInputData").html(`
+    					<textarea class="z-depth-1" id="RawJson" style="resize:none; height: 15rem; background-color: white" ></textarea>
+    					`);
+    		}
+    	});
+    });
+</script>
+</html>

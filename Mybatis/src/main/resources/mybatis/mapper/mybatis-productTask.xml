@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
+<mapper namespace="cn.pomit.springwork.mybatis.mapper.activiti.ProductMapper">  
+    <resultMap id="BaseResultMap" type="cn.pomit.springwork.mybatis.domain.activiti.ProductTask">  
+        <result column="instance_id" property="instanceId" />  
+        <result column="user_name" property="userName" /> 
+        <result column="title" property="title" />
+        <result column="task_type" property="taskType" />  
+        <result column="content" property="content" />  
+        <result column="curviewer" property="curviewer" />
+    </resultMap>  
+  	<sql id="Base_Column_List" >  
+    	instance_id, user_name, title, task_type, content, curviewer
+  	</sql>  
+	<select id="getUserTask" resultMap="BaseResultMap" parameterType="java.lang.String" >  
+	   select   
+	   <include refid="Base_Column_List" />  
+	   from se_product_task  
+	   where user_name = #{userName,jdbcType=VARCHAR}  
+	</select>  
+	
+	<select id="getUserTaskByInstanceId" resultMap="BaseResultMap" parameterType="java.lang.String" >  
+	   select   
+	   <include refid="Base_Column_List" />  
+	   from se_product_task  
+	   where instance_id = #{instanceId,jdbcType=VARCHAR}  
+	</select>  
+	
+	<select id="getUserTaskByCurrentViwer" resultMap="BaseResultMap" parameterType="java.lang.String" >  
+	   select   
+	   <include refid="Base_Column_List" />  
+	   from se_product_task  
+	   where curviewer = #{curviewer,jdbcType=VARCHAR}  
+	</select>   
+	
+	<insert id="save" parameterType="cn.pomit.springwork.mybatis.domain.activiti.ProductTask">
+	  insert into se_product_task(instance_id, user_name, title, task_type, content, curviewer) 
+	  		values(#{instanceId}, #{userName}, #{title}, #{taskType}, #{content}, #{curviewer})
+	</insert>
+	
+	<update id="updateStatus" parameterType="cn.pomit.springwork.mybatis.domain.activiti.ProductTask">
+		update se_product_task
+		<set>
+			<if test="curviewer != null">curviewer=#{curviewer}</if>
+		</set>
+		where instance_id=#{instanceId}
+	</update>
+</mapper>  
